@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Upload - Fraud Detection{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="card">
+        <h2>Detect Credit Card Fraud</h2>
+        <p>Upload your transaction data or enter details manually to check for potential fraud.</p>
+    </div>
+
+    <!-- File Upload Option -->
+    <div class="card">
+        <h3>Option 1: Upload CSV File</h3>
+        <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <input type="file" id="fileInput" name="file" accept=".csv" style="display: none;" onchange="handleFileSelect(this)">
+                <div class="upload-icon">📁</div>
+                <h4>Click to Upload CSV File</h4>
+                <p>Supported format: CSV with transaction data</p>
+                <p id="fileName" style="margin-top: 1rem; color: #3498db; font-weight: bold;"></p>
+            </div>
+            <button type="submit" class="btn" style="margin-top: 1rem; width: 100%;">
+                <span id="uploadText">Analyze File</span>
+                <div id="uploadLoading" class="loading" style="display: none; margin: 0 auto;"></div>
+            </button>
+        </form>
+    </div>
+
+    <!-- Manual Input Option -->
+    <div class="card">
+        <h3>Option 2: Manual Input</h3>
+        <form id="manualForm" action="/predict" method="POST">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div class="form-group">
+                    <label for="amount">Transaction Amount ($)</label>
+                    <input type="number" class="form-control" id="amount" name="amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time (Hours from Start)</label>
+                    <input type="number" class="form-control" id="time" name="time" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="v1">V1 Feature</label>
+                    <input type="number" class="form-control" id="v1" name="v1" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="v2">V2 Feature</label>
+                    <input type="number" class="form-control" id="v2" name="v2" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="v3">V3 Feature</label>
+                    <input type="number" class="form-control" id="v3" name="v3" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="v4">V4 Feature</label>
+                    <input type="number" class="form-control" id="v4" name="v4" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="v5">V5 Feature</label>
+                    <input type="number" class="form-control" id="v5" name="v5" step="0.0001" required>
+                </div>
+                <div class="form-group">
+                    <label for="v6">V6 Feature</label>
+                    <input type="number" class="form-control" id="v6" name="v6" step="0.0001" required>
+                </div>
+            </div>
+            <button type="submit" class="btn" style="margin-top: 1rem; width: 100%;">
+                <span id="manualText">Analyze Transaction</span>
+                <div id="manualLoading" class="loading" style="display: none; margin: 0 auto;"></div>
+            </button>
+        </form>
+    </div>
+
+    <!-- Sample Data -->
+    <div class="card">
+        <h3>Sample Data Format</h3>
+        <p>Your CSV file should include the following columns:</p>
+        <div style="background: #f8f9fa; padding: 1rem; border-radius: 5px; margin-top: 1rem; overflow-x: auto;">
+            <code>
+                Time,V1,V2,V3,V4,V5,V6,...,V28,Amount<br>
+                0,-1.359807,-0.072781,2.536347,1.378155,-0.338321,0.462388,...,0.239599,149.62<br>
+                0,1.191857,0.266151,0.166480,0.448154,0.060018,-0.082361,...,-0.069083,2.69
+            </code>
+        </div>
+    </div>
+</div>
+
+<script>
+function handleFileSelect(input) {
+    const fileName = document.getElementById('fileName');
+    if (input.files.length > 0) {
+        fileName.textContent = 'Selected: ' + input.files[0].name;
+    } else {
+        fileName.textContent = '';
+    }
+}
+
+// Form submission loading indicators
+document.getElementById('uploadForm').addEventListener('submit', function() {
+    document.getElementById('uploadText').style.display = 'none';
+    document.getElementById('uploadLoading').style.display = 'inline-block';
+});
+
+document.getElementById('manualForm').addEventListener('submit', function() {
+    document.getElementById('manualText').style.display = 'none';
+    document.getElementById('manualLoading').style.display = 'inline-block';
+});
+</script>
+{% endblock %}

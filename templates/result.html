@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Results - Fraud Detection{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="result-card">
+        <h2>Fraud Detection Results</h2>
+        
+        <!-- Result Display -->
+        <div class="fraud-result {% if is_fraud %}fraud{% else %}legitimate{% endif %}">
+            {% if is_fraud %}
+                🚨 POTENTIAL FRAUD DETECTED
+            {% else %}
+                ✅ LEGITIMATE TRANSACTION
+            {% endif %}
+        </div>
+
+        <!-- Probability -->
+        <div class="probability">
+            Fraud Probability: <strong>{{ "%.2f"|format(probability * 100) }}%</strong>
+        </div>
+
+        <!-- Confidence Meter -->
+        <div style="max-width: 400px; margin: 0 auto 2rem;">
+            <div style="background: #ecf0f1; height: 20px; border-radius: 10px; overflow: hidden;">
+                <div style="height: 100%; background: {% if is_fraud %}#e74c3c{% else %}#27ae60{% endif %}; 
+                         width: {{ (probability * 100)|round|int }}%; transition: width 0.5s ease;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+                <span>0%</span>
+                <span>50%</span>
+                <span>100%</span>
+            </div>
+        </div>
+
+        <!-- Transaction Details -->
+        <div class="card" style="text-align: left;">
+            <h3>Transaction Details</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <div>
+                    <strong>Amount:</strong> ${{ "%.2f"|format(amount) }}
+                </div>
+                <div>
+                    <strong>Time:</strong> {{ "%.2f"|format(time) }} hours
+                </div>
+                <div>
+                    <strong>Analysis ID:</strong> {{ analysis_id }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="card" style="text-align: left;">
+            <h3>Recommendations</h3>
+            {% if is_fraud %}
+            <div style="color: #e74c3c;">
+                <p><strong>⚠️ Immediate Actions Recommended:</strong></p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Contact the cardholder for verification</li>
+                    <li>Place a temporary hold on the transaction</li>
+                    <li>Review recent transaction history</li>
+                    <li>Consider additional authentication steps</li>
+                </ul>
+            </div>
+            {% else %}
+            <div style="color: #27ae60;">
+                <p><strong>✅ Transaction appears legitimate</strong></p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>No immediate action required</li>
+                    <li>Continue monitoring as usual</li>
+                    <li>Consider this a low-risk transaction</li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+            <a href="{{ url_for('upload') }}" class="btn">Analyze Another</a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Fraud Detection{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Protect Your Transactions</h1>
+        <p>Advanced AI-powered credit card fraud detection system</p>
+        <a href="{{ url_for('upload') }}" class="btn">Detect Fraud Now</a>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>Real-time Detection</h3>
+                <p>Instant analysis of transactions for suspicious activities</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Powered</h3>
+                <p>Machine learning algorithms trained on millions of transactions</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🛡️</div>
+                <h3>Secure & Private</h3>
+                <p>Your data is encrypted and never stored on our servers</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast Processing</h3>
+                <p>Get results in seconds with our optimized detection engine</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="card">
+        <h2>How It Works</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+            <div style="text-align: center;">
+                <div style="background: #3498db; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; margin: 0 auto 1rem; font-weight: bold;">1</div>
+                <h4>Upload Data</h4>
+                <p>Provide transaction details or upload a CSV file</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="background: #3498db; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; margin: 0 auto 1rem; font-weight: bold;">2</div>
+                <h4>AI Analysis</h4>
+                <p>Our system analyzes patterns and behaviors</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="background: #3498db; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; margin: 0 auto 1rem; font-weight: bold;">3</div>
+                <h4>Get Results</h4>
+                <p>Receive instant fraud probability assessment</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="card">
+        <h2>Why Choose Our System?</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+            <div style="text-align: center;">
+                <h3 style="color: #e74c3c; font-size: 2.5rem;">99.5%</h3>
+                <p>Detection Accuracy</p>
+            </div>
+            <div style="text-align: center;">
+                <h3 style="color: #e74c3c; font-size: 2.5rem;">&lt;2s</h3>
+                <p>Average Processing Time</p>
+            </div>
+            <div style="text-align: center;">
+                <h3 style="color: #e74c3c; font-size: 2.5rem;">1K+</h3>
+                <p>Transactions Analyzed</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
