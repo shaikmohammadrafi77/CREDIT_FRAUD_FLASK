@@ -1,0 +1,12 @@
+# Go to project folder
+cd credit_fraud_detection
+
+# Create venv
+python -m venv venv
+
+# Activate (Windows)
+venv\Scripts\activate
+pip install -r requirements.txt
+pip install flask
+python app.py
+
