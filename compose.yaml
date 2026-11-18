@@ -1,0 +1,8 @@
+
+services:
+  credit-fraud-app:
+    build: .
+    container_name: credit-fraud-detection
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
